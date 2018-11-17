@@ -4,8 +4,15 @@ namespace App\Services\Prize;
 
 class PrizeService
 {
+    protected $manager;
+
+    public function __construct(Manager $manager)
+    {
+        $this->manager = $manager;
+    }
+
     public function create()
     {
-        dd(1);
+        return $this->manager->definition()->create();
     }
 }
