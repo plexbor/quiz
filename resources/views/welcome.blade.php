@@ -69,7 +69,7 @@
                 <div class="top-right links">
                     @auth
                         <a href="">Призы</a>
-                        <a href="">Профиль</a>
+                        <a href="{{ route('user.edit') }}">Профиль</a>
                     @else
                         <a href="{{ route('login') }}">Вход</a>
 
