@@ -20,7 +20,7 @@ class CreatePrizesTable extends Migration
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('prize_type_id');
             $table->string('value');
-            $table->integer('status')->default(Prize::STATUS_CREATED);
+            $table->integer('status');
             $table->timestamps();
 
             $table->foreign('user_id')->on('users')->references('id');
