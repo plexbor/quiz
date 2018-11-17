@@ -18,5 +18,8 @@ Route::get('/', function () {
 Route::namespace('Web')->group(function () {
     Auth::routes();
 
-    include('web/user.php');
+    Route::middleware('auth')->group(function () {
+        include('web/user.php');
+        include('web/prize.php');
+    });
 });
