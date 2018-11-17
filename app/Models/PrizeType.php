@@ -10,4 +10,8 @@ class PrizeType extends Model
         'name',
         'limit',
     ];
+
+    const MONEY = 1;
+    const BONUS = 2;
+    const THING = 3;
 }
