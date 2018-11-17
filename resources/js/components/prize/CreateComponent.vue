@@ -14,7 +14,7 @@
             getPrize() {
                 axios.post('/api/prize/create')
                     .then(response => {
-                        this.$store.commit('setPrize', response.data.prize)
+                        this.$store.commit('setPrize', response.data)
                     })
                     .catch(error => {
                         console.log(error)
