@@ -173,6 +173,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        App\Providers\PrizeServiceProvider::class,
     ],
 
     /*
@@ -222,6 +223,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
 
+        'Prize' => App\Facades\Prize::class,
     ],
 
 ];
