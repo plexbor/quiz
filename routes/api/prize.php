@@ -5,4 +5,5 @@ Route::prefix('prize')->name('prize.')->group(function () {
     Route::post('create', 'PrizeController@create')->name('create');
 
     Route::post('{prize}/confirm', 'PrizeController@confirm')->name('confirm');
+    Route::post('{prize}/decline', 'PrizeController@decline')->name('decline');
 });

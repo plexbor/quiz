@@ -32,4 +32,11 @@ class PrizeController extends Controller
 
         return new PrizeResource($prize);
     }
+
+    public function decline(Prize $prize)
+    {
+        $prize = PrizeService::decline($prize);
+
+        return new PrizeResource($prize);
+    }
 }

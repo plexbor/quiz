@@ -50,7 +50,16 @@
 
             },
             decline() {
-
+                axios.post(this.url('decline'))
+                    .then(response => {
+                        this.$store.dispatch('getPrizes')
+                    })
+                    .catch(error => {
+                        this.$notify({
+                            type: 'error',
+                            text: error.response.data.message
+                        })
+                    })
             }
         }
     }

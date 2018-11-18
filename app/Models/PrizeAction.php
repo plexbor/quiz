@@ -16,6 +16,7 @@ class PrizeAction extends Model
     const INCREASED_BONUS = 2;
     const SENDED_TO_USER = 3;
     const DELIVERED_TO_USER = 4;
+    const DECLINED = 5;
 
     const TYPES = [
         self::CREATED => 'Создан',
@@ -23,6 +24,7 @@ class PrizeAction extends Model
         self::INCREASED_BONUS => 'Зачислено на счёт лояльности',
         self::SENDED_TO_USER => 'Отправлено пользователю',
         self::DELIVERED_TO_USER => 'Доставлено пользователю',
+        self::DECLINED => 'Пользователь отказался',
     ];
 
     public function getTypeAttribute($value)

@@ -41,4 +41,11 @@ class PrizeService
             return $this->actionManager->confirm($prize);
         });
     }
+
+    public function decline(Prize $prize)
+    {
+        return DB::transaction(function () use ($prize) {
+            return $this->actionManager->decline($prize);
+        });
+    }
 }

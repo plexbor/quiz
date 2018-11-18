@@ -24995,6 +24995,7 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_0_vue_notification___default.a);
 
 Vue.component('prize-list', __webpack_require__(43));
 Vue.component('prize-item', __webpack_require__(46));
+Vue.component('prize-action-modal', __webpack_require__(57));
 Vue.component('prize-create', __webpack_require__(49));
 
 // const files = require.context('./', true, /\.vue$/i)
@@ -48461,7 +48462,8 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vuex
 
 var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
     state: {
-        prizes: []
+        prizes: [],
+        actions: []
     },
     mutations: {
         setPrize: function setPrize(state, prize) {
@@ -48469,6 +48471,9 @@ var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
         },
         setPrizes: function setPrizes(state, prizes) {
             state.prizes = prizes;
+        },
+        setActions: function setActions(state, actions) {
+            state.actions = actions;
         }
     },
     actions: {
@@ -49509,6 +49514,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     computed: {
@@ -49546,12 +49552,17 @@ var render = function() {
                   _vm._v(" "),
                   _c(
                     "tbody",
-                    _vm._l(_vm.prizes, function(prize) {
-                      return _c("prize-item", {
-                        key: prize.id,
-                        attrs: { prize: prize }
-                      })
-                    })
+                    [
+                      _vm._l(_vm.prizes, function(prize) {
+                        return _c("prize-item", {
+                          key: prize.id,
+                          attrs: { prize: prize }
+                        })
+                      }),
+                      _vm._v(" "),
+                      _c("prize-action-modal")
+                    ],
+                    2
                   )
                 ]
               ),
@@ -49662,6 +49673,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['prize'],
@@ -49677,6 +49690,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         url: function url(action) {
             return '/api/prize/' + this.prize.id + '/' + action;
         },
+        setActions: function setActions() {
+            this.$store.commit('setActions', this.prize.actions);
+        },
         confirm: function confirm() {
             var _this = this;
 
@@ -49690,7 +49706,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
         },
         convert: function convert() {},
-        decline: function decline() {}
+        decline: function decline() {
+            var _this2 = this;
+
+            axios.post(this.url('decline')).then(function (response) {
+                _this2.$store.dispatch('getPrizes');
+            }).catch(function (error) {
+                _this2.$notify({
+                    type: 'error',
+                    text: error.response.data.message
+                });
+            });
+        }
     }
 });
 
@@ -49711,9 +49738,9 @@ var render = function() {
     _vm._v(" "),
     _c("td", [_vm._v(_vm._s(_vm.prize.status))]),
     _vm._v(" "),
-    _vm.isCreated
-      ? _c("td", [
-          _c(
+    _c("td", [
+      _vm.isCreated
+        ? _c(
             "a",
             {
               staticClass: "btn btn-success",
@@ -49726,26 +49753,28 @@ var render = function() {
               }
             },
             [_vm._v("Подтвердить")]
-          ),
-          _vm._v(" "),
-          _vm.isMoney
-            ? _c(
-                "a",
-                {
-                  staticClass: "btn btn-primary",
-                  attrs: { href: "#" },
-                  on: {
-                    click: function($event) {
-                      $event.preventDefault()
-                      return _vm.convert($event)
-                    }
-                  }
-                },
-                [_vm._v("Конвертировать")]
-              )
-            : _vm._e(),
-          _vm._v(" "),
-          _c(
+          )
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.isCreated && _vm.isMoney
+        ? _c(
+            "a",
+            {
+              staticClass: "btn btn-primary",
+              attrs: { href: "#" },
+              on: {
+                click: function($event) {
+                  $event.preventDefault()
+                  return _vm.convert($event)
+                }
+              }
+            },
+            [_vm._v("Конвертировать")]
+          )
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.isCreated
+        ? _c(
             "a",
             {
               staticClass: "btn btn-danger",
@@ -49759,8 +49788,22 @@ var render = function() {
             },
             [_vm._v("Отказаться")]
           )
-        ])
-      : _vm._e()
+        : _vm._e(),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-primary",
+          attrs: {
+            type: "button",
+            "data-toggle": "modal",
+            "data-target": "#action-modal"
+          },
+          on: { click: _vm.setActions }
+        },
+        [_vm._v("История")]
+      )
+    ])
   ])
 }
 var staticRenderFns = []
@@ -49914,6 +49957,204 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 53 */,
+/* 54 */,
+/* 55 */,
+/* 56 */,
+/* 57 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(4)
+/* script */
+var __vue_script__ = __webpack_require__(58)
+/* template */
+var __vue_template__ = __webpack_require__(59)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/js/components/prize/ActionModalComponent.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-608eebae", Component.options)
+  } else {
+    hotAPI.reload("data-v-608eebae", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 58 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    computed: {
+        actions: function actions() {
+            return this.$store.state.actions;
+        }
+    }
+});
+
+/***/ }),
+/* 59 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    {
+      staticClass: "modal fade",
+      attrs: {
+        id: "action-modal",
+        tabindex: "-1",
+        role: "dialog",
+        "aria-labelledby": "История",
+        "aria-hidden": "true"
+      }
+    },
+    [
+      _c("div", { staticClass: "modal-dialog", attrs: { role: "document" } }, [
+        _c("div", { staticClass: "modal-content" }, [
+          _vm._m(0),
+          _vm._v(" "),
+          _c("div", { staticClass: "modal-body" }, [
+            _c(
+              "table",
+              { staticClass: "table table-bordered table-hover text-center" },
+              [
+                _vm._m(1),
+                _vm._v(" "),
+                _c(
+                  "tbody",
+                  _vm._l(_vm.actions, function(action) {
+                    return _c("tr", [
+                      _c("th", { attrs: { scope: "row" } }, [
+                        _vm._v(_vm._s(action.created_at))
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(action.type))])
+                    ])
+                  })
+                )
+              ]
+            )
+          ])
+        ])
+      ])
+    ]
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c(
+        "h5",
+        { staticClass: "modal-title", attrs: { id: "exampleModalLabel" } },
+        [_vm._v("История")]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Дата и время")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Действие")])
+      ])
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-608eebae", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

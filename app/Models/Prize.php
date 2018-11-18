@@ -17,10 +17,12 @@ class Prize extends Model
 
     const STATUS_CREATED = 1;
     const STATUS_CONFIRMED = 2;
+    const STATUS_DECLINED = 3;
 
     const STATUSES = [
         self::STATUS_CREATED => 'Создан',
         self::STATUS_CONFIRMED => 'Подтверждён',
+        self::STATUS_DECLINED => 'Отказан',
     ];
 
     public function type()
@@ -46,5 +48,10 @@ class Prize extends Model
     public function confirmed()
     {
         $this->update(['status' => self::STATUS_CONFIRMED]);
+    }
+
+    public function declined()
+    {
+        $this->update(['status' => self::STATUS_DECLINED]);
     }
 }
