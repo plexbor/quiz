@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class PrizeResource extends JsonResource
+class PrizeActionResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -15,12 +15,8 @@ class PrizeResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
-            'type' => $this->type->name,
-            'value' => $this->value,
-            'status' => $this->status,
+            'type' => $this->type,
             'created_at' => $this->created_at->toDateTimeString(),
-            'actions' => PrizeActionResource::collection($this->whenLoaded('action')),
         ];
     }
 }

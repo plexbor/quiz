@@ -4,10 +4,12 @@
         <td>{{ prize.type }}</td>
         <td>{{ prize.value }}</td>
         <td>{{ prize.status }}</td>
-        <td v-if="isCreated">
-            <a href="#" class="btn btn-success" @click.prevent="confirm">Подтвердить</a>
-            <a href="#" class="btn btn-primary" @click.prevent="convert" v-if="isMoney">Конвертировать</a>
-            <a href="#" class="btn btn-danger" @click.prevent="decline">Отказаться</a>
+        <td>
+            <a href="#" class="btn btn-success" @click.prevent="confirm" v-if="isCreated">Подтвердить</a>
+            <a href="#" class="btn btn-primary" @click.prevent="convert" v-if="isCreated && isMoney">Конвертировать</a>
+            <a href="#" class="btn btn-danger" @click.prevent="decline" v-if="isCreated">Отказаться</a>
+
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#action-modal" @click="setActions">История</button>
         </td>
     </tr>
 </template>
@@ -28,6 +30,9 @@
         methods: {
             url(action) {
                 return '/api/prize/' + this.prize.id + '/' + action
+            },
+            setActions() {
+                this.$store.commit('setActions', this.prize.actions)
             },
             confirm() {
                 axios.post(this.url('confirm'))

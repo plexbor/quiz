@@ -2,7 +2,7 @@
 
 namespace App\Services\Prize\Create;
 
-use App\Models\PrizeType;
+use App\Models\{PrizeType, PrizeAction};
 
 class Manager
 {
@@ -36,7 +36,11 @@ class Manager
 
     public function create()
     {
-        return $this->factory->create($this->data);
+        $prize = $this->factory->create($this->data);
+
+        $prize->action()->create(['type' => PrizeAction::CREATED]);
+
+        return $prize;
     }
 
     protected function defineType()

@@ -8,6 +8,6 @@ class Repository
 {
     public function getAll()
     {
-        return Prize::forUser()->orderBy('id', 'desc')->get();
+        return Prize::forUser()->with('type', 'action')->orderBy('id', 'desc')->get();
     }
 }

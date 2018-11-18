@@ -16,6 +16,7 @@
                         </thead>
                         <tbody>
                             <prize-item v-for="prize in prizes" :prize="prize" :key="prize.id"></prize-item>
+                            <prize-action-modal></prize-action-modal>
                         </tbody>
                     </table>
                     Количество призов: {{ prizes.length }}

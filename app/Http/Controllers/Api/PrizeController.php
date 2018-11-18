@@ -21,7 +21,7 @@ class PrizeController extends Controller
 
     public function create()
     {
-        $prize = PrizeService::create()->load('type');
+        $prize = PrizeService::create()->load('type', 'action');
 
         return new PrizeResource($prize);
     }

@@ -5,7 +5,8 @@ Vue.use(Vuex)
 
 export const store = new Vuex.Store({
     state: {
-        prizes: []
+        prizes: [],
+        actions: [],
     },
     mutations: {
         setPrize (state, prize) {
@@ -13,6 +14,9 @@ export const store = new Vuex.Store({
         },
         setPrizes(state, prizes) {
             state.prizes = prizes
+        },
+        setActions(state, actions) {
+            state.actions = actions
         }
     },
     actions: {
