@@ -8,7 +8,7 @@ use Auth;
 
 class BonusType implements Strategy
 {
-    public function handle(Prize $prize)
+    public function handle(Prize $prize): Prize
     {
         Auth::user()->increment('bonus', $prize->value);
 

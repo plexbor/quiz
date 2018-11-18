@@ -6,6 +6,7 @@ use App\Services\Prize\Action\Manager as ActionManager;
 use App\Services\Prize\Create\Manager as CreateManager;
 
 use App\Http\Resources\PrizeResource;
+use Illuminate\Http\Resources\Json\JsonResource;
 
 use App\Models\Prize;
 
@@ -13,7 +14,7 @@ use DB;
 
 class PrizeService
 {
-    protected $repository, $createManager;
+    protected $repository, $actionManager, $createManager;
 
     public function __construct(
         Repository $repository,
@@ -25,14 +26,14 @@ class PrizeService
         $this->createManager = $createManager;
     }
 
-    public function list()
+    public function list(): JsonResource
     {
         $prizes = $this->repository->getAll();
 
         return PrizeResource::collection($prizes);
     }
 
-    public function create()
+    public function create(): JsonResource
     {
         return DB::transaction(function () {
             $prize = $this->createManager->definition()->decrementLimit()->create();
@@ -41,7 +42,7 @@ class PrizeService
         });
     }
 
-    public function confirm(Prize $prize)
+    public function confirm(Prize $prize): JsonResource
     {
         return DB::transaction(function () use ($prize) {
             $prize = $this->actionManager->confirm($prize);
@@ -50,7 +51,7 @@ class PrizeService
         });
     }
 
-    public function convert(Prize $prize)
+    public function convert(Prize $prize): JsonResource
     {
         return DB::transaction(function () use ($prize) {
             $prize = $this->actionManager->convert($prize);
@@ -59,7 +60,7 @@ class PrizeService
         });
     }
 
-    public function decline(Prize $prize)
+    public function decline(Prize $prize): JsonResource
     {
         return DB::transaction(function () use ($prize) {
             $prize = $this->actionManager->decline($prize);
@@ -68,7 +69,7 @@ class PrizeService
         });
     }
 
-    protected function response(Prize $prize)
+    protected function response(Prize $prize): PrizeResource
     {
         return new PrizeResource($prize->load('type', 'action'));
     }

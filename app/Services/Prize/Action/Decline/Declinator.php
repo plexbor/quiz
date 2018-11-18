@@ -6,7 +6,7 @@ use App\Models\{Prize, PrizeAction, PrizeType};
 
 class Declinator
 {
-    public function decline(Prize $prize)
+    public function decline(Prize $prize): Prize
     {
         switch ($prize->prize_type_id) {
             case PrizeType::MONEY:

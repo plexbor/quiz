@@ -6,7 +6,7 @@ use App\Models\{Prize, PrizeAction, PrizeType};
 
 class Converter
 {
-    public function convert(Prize $prize)
+    public function convert(Prize $prize): Prize
     {
         $prize->type->increment('limit', $prize->value);
 

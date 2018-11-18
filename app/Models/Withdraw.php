@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\{Model, Relations\BelongsTo};
 
 class Withdraw extends Model
 {
@@ -17,12 +17,12 @@ class Withdraw extends Model
     const STATUS_COMPLETED = 2;
     const STATUS_CANCELLED = 3;
 
-    public function prize()
+    public function prize(): BelongsTo
     {
         return $this->belongsTo(Prize::class);
     }
 
-    public function completed()
+    public function completed(): void
     {
         $this->update(['status' => self::STATUS_COMPLETED]);
     }

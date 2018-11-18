@@ -6,5 +6,5 @@ use App\Models\Prize;
 
 interface Strategy
 {
-    public function handle(Prize $prize);
+    public function handle(Prize $prize): Prize;
 }

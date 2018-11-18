@@ -8,7 +8,7 @@ use Auth;
 
 class MoneyType implements Strategy
 {
-    public function handle(Prize $prize)
+    public function handle(Prize $prize): Prize
     {
         if ($bankAccount = Auth::user()->bank_account) {
             return $this->availableAccount($prize, $bankAccount);
@@ -17,7 +17,7 @@ class MoneyType implements Strategy
         }
     }
 
-    private function availableAccount(Prize $prize, string $bankAccount)
+    private function availableAccount(Prize $prize, string $bankAccount): Prize
     {
         $this->createWithdraw($prize, $bankAccount);
 
@@ -28,7 +28,7 @@ class MoneyType implements Strategy
         return $prize;
     }
 
-    private function createWithdraw(Prize $prize, string $bankAccount)
+    private function createWithdraw(Prize $prize, string $bankAccount): void
     {
         Withdraw::create([
             'prize_id' => $prize->id,

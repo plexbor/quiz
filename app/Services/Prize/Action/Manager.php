@@ -10,6 +10,8 @@ use App\Models\Prize;
 
 class Manager
 {
+    protected $confirmator, $converter, $declinator;
+
     public function __construct(
         Confirmator $confirmator,
         Declinator $declinator,
@@ -20,17 +22,17 @@ class Manager
         $this->declinator = $declinator;
     }
 
-    public function confirm(Prize $prize)
+    public function confirm(Prize $prize): Prize
     {
         return $this->confirmator->confirm($prize);
     }
 
-    public function convert(Prize $prize)
+    public function convert(Prize $prize): Prize
     {
         return $this->converter->convert($prize);
     }
 
-    public function decline(Prize $prize)
+    public function decline(Prize $prize): Prize
     {
         return $this->declinator->decline($prize);
     }

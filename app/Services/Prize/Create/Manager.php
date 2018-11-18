@@ -2,11 +2,11 @@
 
 namespace App\Services\Prize\Create;
 
-use App\Models\{PrizeType, PrizeAction};
+use App\Models\{Prize, PrizeType, PrizeAction};
 
 class Manager
 {
-    protected $limiter, $factory, $data = [];
+    protected $calculator, $limiter, $factory, $data = [];
 
     public function __construct(
         Calculator $calculator,
@@ -18,7 +18,7 @@ class Manager
         $this->factory = $factory;
     }
 
-    public function definition()
+    public function definition(): self
     {
         if (!$this->defineType()->calculateValue()->checkLimit()) {
             $this->definition();
@@ -27,14 +27,14 @@ class Manager
         return $this;
     }
 
-    public function decrementLimit()
+    public function decrementLimit(): self
     {
         $this->limiter->decrement($this->get('prizeType'), $this->get('value'));
 
         return $this;
     }
 
-    public function create()
+    public function create(): Prize
     {
         $prize = $this->factory->create($this->data);
 
@@ -43,14 +43,14 @@ class Manager
         return $prize;
     }
 
-    protected function defineType()
+    protected function defineType(): self
     {
         $this->data['prizeType'] = PrizeType::getRandom();
 
         return $this;
     }
 
-    protected function calculateValue()
+    protected function calculateValue(): self
     {
         $value = $this->calculator->handle($this->get('prizeType'));
 
@@ -59,7 +59,7 @@ class Manager
         return $this;
     }
 
-    protected function checkLimit()
+    protected function checkLimit(): bool
     {
         return $this->limiter->handle($this->get('prizeType'), $this->get('value'));
     }

@@ -31,7 +31,7 @@ class PrizeAction extends Model
         self::CREATED_WITHDRAW => 'Создан запрос на вывод денег на счёт в банк',
     ];
 
-    public function getTypeAttribute($value)
+    public function getTypeAttribute(int $value): string
     {
         return self::TYPES[$value];
     }

@@ -8,7 +8,7 @@ use Auth;
 
 class ThingType implements Strategy
 {
-    public function handle(Prize $prize)
+    public function handle(Prize $prize): Prize
     {
         if ($address = Auth::user()->address) {
             return $this->availableAddress($prize, $address);
@@ -17,7 +17,7 @@ class ThingType implements Strategy
         }
     }
 
-    private function availableAddress(Prize $prize, string $address)
+    private function availableAddress(Prize $prize, string $address): Prize
     {
         $prize->confirmed();
 

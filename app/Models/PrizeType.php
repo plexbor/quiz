@@ -22,17 +22,17 @@ class PrizeType extends Model
         'Камера',
     ];
 
-    public static function getRandom()
+    public static function getRandom(): self
     {
         return self::inRandomOrder()->first();
     }
 
-    public function checkMoneyLimit(int $value)
+    public function checkMoneyLimit(int $value): bool
     {
         return ($this->limit - $value) >= 0;
     }
 
-    public function checkThingLimit()
+    public function checkThingLimit(): bool
     {
         return $this->limit > 0;
     }

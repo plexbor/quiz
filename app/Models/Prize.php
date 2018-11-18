@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
+use Illuminate\Database\Eloquent\Relations\{BelongsTo, HasMany};
 
 use Auth;
 
@@ -27,32 +29,32 @@ class Prize extends Model
         self::STATUS_CONVERTED => 'Конвертирован',
     ];
 
-    public function type()
+    public function type(): BelongsTo
     {
         return $this->belongsTo(PrizeType::class, 'prize_type_id', 'id');
     }
 
-    public function action()
+    public function action(): HasMany
     {
         return $this->hasMany(PrizeAction::class);
     }
 
-    public function getStatusAttribute($value)
+    public function getStatusAttribute(int $value): string
     {
         return self::STATUSES[$value];
     }
 
-    public function scopeForUser($query)
+    public function scopeForUser(EloquentBuilder $query): void
     {
         $query->where('user_id', Auth::id());
     }
 
-    public function confirmed()
+    public function confirmed(): void
     {
         $this->update(['status' => self::STATUS_CONFIRMED]);
     }
 
-    public function declined()
+    public function declined(): void
     {
         $this->update(['status' => self::STATUS_DECLINED]);
     }

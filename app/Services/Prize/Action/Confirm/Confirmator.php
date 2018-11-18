@@ -6,7 +6,7 @@ use App\Models\{Prize, PrizeType};
 
 class Confirmator
 {
-    public function confirm(Prize $prize)
+    public function confirm(Prize $prize): Prize
     {
         switch ($prize->prize_type_id) {
             case PrizeType::MONEY:

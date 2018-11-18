@@ -8,7 +8,7 @@ use Auth;
 
 class Factory
 {
-    public function create(array $data)
+    public function create(array $data): Prize
     {
         return Prize::create([
             'user_id'       => Auth::id(),

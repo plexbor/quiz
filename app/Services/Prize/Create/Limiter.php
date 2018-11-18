@@ -6,7 +6,7 @@ use App\Models\PrizeType;
 
 class Limiter
 {
-    public function handle(PrizeType $prizeType, $value)
+    public function handle(PrizeType $prizeType, $value): bool
     {
         switch ($prizeType->id) {
             case PrizeType::MONEY:
@@ -29,7 +29,7 @@ class Limiter
         return $isAllow;
     }
 
-    public function decrement(PrizeType $prizeType, $value)
+    public function decrement(PrizeType $prizeType, $value): void
     {
         switch ($prizeType->id) {
             case PrizeType::MONEY:
