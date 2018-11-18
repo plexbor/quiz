@@ -8,11 +8,22 @@ export const store = new Vuex.Store({
         prizes: []
     },
     mutations: {
-        setPrizes (state, prizes) {
-            state.prizes = prizes
-        },
         setPrize (state, prize) {
             state.prizes.unshift(prize)
         },
+        setPrizes(state, prizes) {
+            state.prizes = prizes
+        }
+    },
+    actions: {
+        getPrizes() {
+            axios.get('/api/prize/list')
+                .then(response => {
+                    this.commit('setPrizes', response.data)
+                })
+                .catch(error => {
+                    console.log(error)
+                })
+        }
     }
 })

@@ -21,7 +21,7 @@
                         this.$store.commit('setPrize', response.data)
                     })
                     .catch(error => {
-                        console.log(error)
+                        console.log(error.response.data.message)
                     })
             }
         }

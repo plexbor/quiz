@@ -33,18 +33,7 @@
             }
         },
         mounted() {
-            this.getPrizes()
+            this.$store.dispatch('getPrizes')
         },
-        methods: {
-            getPrizes() {
-                axios.get('/api/prize/list')
-                    .then(response => {
-                        this.$store.commit('setPrizes', response.data)
-                    })
-                    .catch(error => {
-                        console.log(error)
-                    })
-            }
-        }
     }
 </script>

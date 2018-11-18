@@ -37,6 +37,8 @@ class PrizeService
 
     public function confirm(Prize $prize)
     {
-        return $this->actionManager->confirm($prize);
+        return DB::transaction(function () use ($prize) {
+            return $this->actionManager->confirm($prize);
+        });
     }
 }

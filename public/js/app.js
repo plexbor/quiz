@@ -47223,11 +47223,22 @@ var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
         prizes: []
     },
     mutations: {
-        setPrizes: function setPrizes(state, prizes) {
-            state.prizes = prizes;
-        },
         setPrize: function setPrize(state, prize) {
             state.prizes.unshift(prize);
+        },
+        setPrizes: function setPrizes(state, prizes) {
+            state.prizes = prizes;
+        }
+    },
+    actions: {
+        getPrizes: function getPrizes() {
+            var _this = this;
+
+            axios.get('/api/prize/list').then(function (response) {
+                _this.commit('setPrizes', response.data);
+            }).catch(function (error) {
+                console.log(error);
+            });
         }
     }
 });
@@ -48362,7 +48373,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             axios.post('/api/prize/create').then(function (response) {
                 _this.$store.commit('setPrize', response.data);
             }).catch(function (error) {
-                console.log(error);
+                console.log(error.response.data.message);
             });
         }
     }
@@ -48515,19 +48526,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }
     },
     mounted: function mounted() {
-        this.getPrizes();
-    },
-
-    methods: {
-        getPrizes: function getPrizes() {
-            var _this = this;
-
-            axios.get('/api/prize/list').then(function (response) {
-                _this.$store.commit('setPrizes', response.data);
-            }).catch(function (error) {
-                console.log(error);
-            });
-        }
+        this.$store.dispatch('getPrizes');
     }
 });
 
@@ -48688,10 +48687,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             return '/api/prize/' + this.prize.id + '/' + action;
         },
         confirm: function confirm() {
+            var _this = this;
+
             axios.post(this.url('confirm')).then(function (response) {
-                console.log(response);
+                _this.$store.dispatch('getPrizes');
             }).catch(function (error) {
-                console.log(error);
+                console.log(error.response.data.message);
             });
         },
         convert: function convert() {},

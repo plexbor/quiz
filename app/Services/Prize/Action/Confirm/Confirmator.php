@@ -26,6 +26,6 @@ class Confirmator
                 break;
         }
 
-        $type->handle($prize);
+        return $type->handle($prize);
     }
 }

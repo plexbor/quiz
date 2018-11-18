@@ -32,10 +32,10 @@
             confirm() {
                 axios.post(this.url('confirm'))
                     .then(response => {
-                        console.log(response)
+                        this.$store.dispatch('getPrizes')
                     })
                     .catch(error => {
-                        console.log(error)
+                        console.log(error.response.data.message)
                     })
             },
             convert() {

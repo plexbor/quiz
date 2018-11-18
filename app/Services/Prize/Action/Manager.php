@@ -15,6 +15,6 @@ class Manager
 
     public function confirm(Prize $prize)
     {
-        $this->confirmator->confirm($prize);
+        return $this->confirmator->confirm($prize);
     }
 }
