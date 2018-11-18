@@ -18,15 +18,17 @@ class PrizeAction extends Model
     const DELIVERED_TO_USER = 4;
     const DECLINED = 5;
     const CONVERTED_TO_BONUS = 6;
+    const CREATED_WITHDRAW = 7;
 
     const TYPES = [
         self::CREATED => 'Создан',
-        self::SENDED_TO_BANK => 'Отправлен на счёт в банк',
-        self::INCREASED_BONUS => 'Зачислен на счёт лояльности',
-        self::SENDED_TO_USER => 'Отправлен пользователю',
-        self::DELIVERED_TO_USER => 'Доставлен пользователю',
-        self::DECLINED => 'Отказан',
-        self::CONVERTED_TO_BONUS => 'Конвертирован в баллы лояльности',
+        self::SENDED_TO_BANK => 'Деньги отправлены на счёт в банк',
+        self::INCREASED_BONUS => 'Баллы зачислены на счёт лояльности',
+        self::SENDED_TO_USER => 'Предмет отправлен пользователю',
+        self::DELIVERED_TO_USER => 'Предмет доставлен пользователю',
+        self::DECLINED => 'Пользователь отказался от приза',
+        self::CONVERTED_TO_BONUS => 'Деньги конвертированы в баллы лояльности',
+        self::CREATED_WITHDRAW => 'Создан запрос на вывод денег на счёт в банк',
     ];
 
     public function getTypeAttribute($value)

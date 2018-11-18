@@ -2,7 +2,7 @@
 
 namespace App\Services\Prize\Action\Confirm;
 
-use App\Models\{Prize, PrizeAction};
+use App\Models\{Prize, PrizeAction, Withdraw};
 
 use Auth;
 
@@ -19,19 +19,23 @@ class MoneyType implements Strategy
 
     private function availableAccount(Prize $prize, string $bankAccount)
     {
-        $this->sendToBank($prize, $bankAccount);
+        $this->createWithdraw($prize, $bankAccount);
 
         $prize->confirmed();
 
-        $prize->action()->create(['type' => PrizeAction::SENDED_TO_BANK]);
+        $prize->action()->create(['type' => PrizeAction::CREATED_WITHDRAW]);
 
         return $prize;
     }
 
-    private function sendToBank(Prize $prize, string $bankAccount)
+    private function createWithdraw(Prize $prize, string $bankAccount)
     {
-        // send prize value to user bank account
-        // Bank::setAccount($bankAccount)->setAmount($prize->value)->send()
+        Withdraw::create([
+            'prize_id' => $prize->id,
+            'bank_account' => $bankAccount,
+            'amount' => $prize->value,
+            'status' => Withdraw::STATUS_CREATED,
+        ]);
     }
 
     private function notAvailableAccount()
