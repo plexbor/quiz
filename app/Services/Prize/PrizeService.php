@@ -6,11 +6,17 @@ use App\Services\Prize\Create\Manager as CreateManager;
 
 class PrizeService
 {
-    protected $createManager;
+    protected $repository, $createManager;
 
-    public function __construct(CreateManager $createManager)
+    public function __construct(Repository $repository, CreateManager $createManager)
     {
+        $this->repository = $repository;
         $this->createManager = $createManager;
+    }
+
+    public function list()
+    {
+        return $this->repository->getAll();
     }
 
     public function create()

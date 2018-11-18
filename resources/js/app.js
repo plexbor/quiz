@@ -19,6 +19,7 @@ import { store } from './store'
  * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
  */
 
+Vue.component('prize-list', require('./components/prize/ListComponent.vue'));
 Vue.component('prize-create', require('./components/prize/CreateComponent.vue'));
 
 // const files = require.context('./', true, /\.vue$/i)

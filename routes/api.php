@@ -14,5 +14,5 @@ use Illuminate\Http\Request;
 */
 
 Route::namespace('Api')->middleware('auth:api')->group(function () {
-    Route::post('prize/create', 'PrizeController@create')->name('prize.create');
+    include('api/prize.php');
 });

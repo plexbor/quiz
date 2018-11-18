@@ -10,6 +10,13 @@ use Prize;
 
 class PrizeController extends Controller
 {
+    public function list()
+    {
+        $prizes = Prize::list();
+
+        return PrizeResource::collection($prizes);
+    }
+
     public function create()
     {
         $prize = Prize::create()->load('type');

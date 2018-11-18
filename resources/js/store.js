@@ -9,7 +9,7 @@ export const store = new Vuex.Store({
     },
     mutations: {
         setPrizes (state, prizes) {
-            state.prizes = prize
+            state.prizes = prizes
         },
         setPrize (state, prize) {
             state.prizes.unshift(prize)

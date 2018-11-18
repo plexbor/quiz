@@ -2,10 +2,7 @@
 
 @section('content')
 <div class="container">
-    <div class="row">
-        <div class="col-md-12">
-            <prize-create></prize-create>
-        </div>
-    </div>
+    <prize-create></prize-create>
+    <prize-list></prize-list>
 </div>
 @endsection

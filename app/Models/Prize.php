@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+use Auth;
+
 class Prize extends Model
 {
     protected $fillable = [
@@ -27,5 +29,10 @@ class Prize extends Model
     public function getStatusAttribute($value)
     {
         return self::STATUSES[$value];
+    }
+
+    public function scopeForUser($query)
+    {
+        $query->where('user_id', Auth::id());
     }
 }
