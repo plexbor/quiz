@@ -15,13 +15,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="prize in prizes">
-                                <th scope="row">{{ prize.id }}</th>
-                                <td>{{ prize.type }}</td>
-                                <td>{{ prize.value }}</td>
-                                <td>{{ prize.status }}</td>
-                                <td></td>
-                            </tr>
+                            <prize-item v-for="prize in prizes" :prize="prize" :key="prize.id"></prize-item>
                         </tbody>
                     </table>
                     Количество призов: {{ prizes.length }}
