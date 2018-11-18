@@ -42,6 +42,13 @@ class PrizeService
         });
     }
 
+    public function convert(Prize $prize)
+    {
+        return DB::transaction(function () use ($prize) {
+            return $this->actionManager->convert($prize);
+        });
+    }
+
     public function decline(Prize $prize)
     {
         return DB::transaction(function () use ($prize) {

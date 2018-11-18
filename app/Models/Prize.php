@@ -18,11 +18,13 @@ class Prize extends Model
     const STATUS_CREATED = 1;
     const STATUS_CONFIRMED = 2;
     const STATUS_DECLINED = 3;
+    const STATUS_CONVERTED = 4;
 
     const STATUSES = [
         self::STATUS_CREATED => 'Создан',
         self::STATUS_CONFIRMED => 'Подтверждён',
         self::STATUS_DECLINED => 'Отказан',
+        self::STATUS_CONVERTED => 'Конвертирован',
     ];
 
     public function type()
