@@ -48675,8 +48675,25 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['prize'],
+    computed: {
+        isCreated: function isCreated() {
+            return this.prize.status === 'Создан';
+        },
+        isMoney: function isMoney() {
+            return this.prize.type === 'Деньги';
+        }
+    },
     methods: {
-        confirm: function confirm() {},
+        url: function url(action) {
+            return '/api/prize/' + this.prize.id + '/' + action;
+        },
+        confirm: function confirm() {
+            axios.post(this.url('confirm')).then(function (response) {
+                console.log(response);
+            }).catch(function (error) {
+                console.log(error);
+            });
+        },
         convert: function convert() {},
         decline: function decline() {}
     }
@@ -48699,52 +48716,56 @@ var render = function() {
     _vm._v(" "),
     _c("td", [_vm._v(_vm._s(_vm.prize.status))]),
     _vm._v(" "),
-    _c("td", [
-      _c(
-        "a",
-        {
-          staticClass: "btn btn-success",
-          attrs: { href: "#" },
-          on: {
-            click: function($event) {
-              $event.preventDefault()
-              return _vm.confirm($event)
-            }
-          }
-        },
-        [_vm._v("Подтвердить")]
-      ),
-      _vm._v(" "),
-      _c(
-        "a",
-        {
-          staticClass: "btn btn-primary",
-          attrs: { href: "#" },
-          on: {
-            click: function($event) {
-              $event.preventDefault()
-              return _vm.convert($event)
-            }
-          }
-        },
-        [_vm._v("Конвертировать")]
-      ),
-      _vm._v(" "),
-      _c(
-        "a",
-        {
-          staticClass: "btn btn-danger",
-          attrs: { href: "#" },
-          on: {
-            click: function($event) {
-              $event.preventDefault()
-              return _vm.decline($event)
-            }
-          }
-        },
-        [_vm._v("Отказаться")]
-      )
-    ])
+    _vm.isCreated
+      ? _c("td", [
+          _c(
+            "a",
+            {
+              staticClass: "btn btn-success",
+              attrs: { href: "#" },
+              on: {
+                click: function($event) {
+                  $event.preventDefault()
+                  return _vm.confirm($event)
+                }
+              }
+            },
+            [_vm._v("Подтвердить")]
+          ),
+          _vm._v(" "),
+          _vm.isMoney
+            ? _c(
+                "a",
+                {
+                  staticClass: "btn btn-primary",
+                  attrs: { href: "#" },
+                  on: {
+                    click: function($event) {
+                      $event.preventDefault()
+                      return _vm.convert($event)
+                    }
+                  }
+                },
+                [_vm._v("Конвертировать")]
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _c(
+            "a",
+            {
+              staticClass: "btn btn-danger",
+              attrs: { href: "#" },
+              on: {
+                click: function($event) {
+                  $event.preventDefault()
+                  return _vm.decline($event)
+                }
+              }
+            },
+            [_vm._v("Отказаться")]
+          )
+        ])
+      : _vm._e()
   ])
 }
 var staticRenderFns = []

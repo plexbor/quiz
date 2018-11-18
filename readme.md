@@ -6,15 +6,17 @@
 - установить параметры подключения к БД в .env
 - php artisan migrate
 - php artisan db:seed
+- php artisan limit:update
 - php artisan passport:install
+- npm install
+- npm run dev
 
 
 ### Для разработки
 
-- npm install
-- npm run watch
-
 - php artisan serve
+- npm run watch
+- vendor/bin/phpunit
 
 
 ### При первом деплое на production сервер

@@ -22,7 +22,7 @@ class Calculator
                 break;
 
             default:
-                abort(404, 'Not found case for prize type.');
+                abort(422, 'Calculator not found case for prize type: '.$prizeType->id);
                 break;
         }
 

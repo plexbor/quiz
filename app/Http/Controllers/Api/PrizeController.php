@@ -6,20 +6,29 @@ use App\Http\Controllers\Controller;
 
 use App\Http\Resources\PrizeResource;
 
-use Prize;
+use App\Models\Prize;
+
+use Prize as PrizeService;
 
 class PrizeController extends Controller
 {
     public function list()
     {
-        $prizes = Prize::list();
+        $prizes = PrizeService::list();
 
         return PrizeResource::collection($prizes);
     }
 
     public function create()
     {
-        $prize = Prize::create()->load('type');
+        $prize = PrizeService::create()->load('type');
+
+        return new PrizeResource($prize);
+    }
+
+    public function confirm(Prize $prize)
+    {
+        $prize = PrizeService::confirm($prize);
 
         return new PrizeResource($prize);
     }

@@ -4,9 +4,9 @@
         <td>{{ prize.type }}</td>
         <td>{{ prize.value }}</td>
         <td>{{ prize.status }}</td>
-        <td>
+        <td v-if="isCreated">
             <a href="#" class="btn btn-success" @click.prevent="confirm">Подтвердить</a>
-            <a href="#" class="btn btn-primary" @click.prevent="convert">Конвертировать</a>
+            <a href="#" class="btn btn-primary" @click.prevent="convert" v-if="isMoney">Конвертировать</a>
             <a href="#" class="btn btn-danger" @click.prevent="decline">Отказаться</a>
         </td>
     </tr>
@@ -17,9 +17,26 @@
         props: [
             'prize'
         ],
+        computed: {
+            isCreated() {
+                return this.prize.status === 'Создан'
+            },
+            isMoney() {
+                return this.prize.type === 'Деньги'
+            }
+        },
         methods: {
+            url(action) {
+                return '/api/prize/' + this.prize.id + '/' + action
+            },
             confirm() {
-
+                axios.post(this.url('confirm'))
+                    .then(response => {
+                        console.log(response)
+                    })
+                    .catch(error => {
+                        console.log(error)
+                    })
             },
             convert() {
 

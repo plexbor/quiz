@@ -22,7 +22,7 @@ class Limiter
                 break;
 
             default:
-                abort(404, 'Not found case for prize type.');
+                abort(422, 'Limiter not found case for prize type: '.$prizeType->id);
                 break;
         }
 
