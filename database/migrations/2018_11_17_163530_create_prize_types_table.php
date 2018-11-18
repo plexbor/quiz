@@ -16,7 +16,7 @@ class CreatePrizeTypesTable extends Migration
         Schema::create('prize_types', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->integer('limit')->default(0);
+            $table->unsignedInteger('limit')->default(0);
             $table->timestamps();
         });
     }

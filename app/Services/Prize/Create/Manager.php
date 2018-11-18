@@ -27,6 +27,13 @@ class Manager
         return $this;
     }
 
+    public function decrementLimit()
+    {
+        $this->limiter->decrement($this->get('prizeType'), $this->get('value'));
+
+        return $this;
+    }
+
     public function create()
     {
         return $this->factory->create($this->data);

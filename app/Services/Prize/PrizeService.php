@@ -7,6 +7,8 @@ use App\Services\Prize\Create\Manager as CreateManager;
 
 use App\Models\Prize;
 
+use DB;
+
 class PrizeService
 {
     protected $repository, $createManager;
@@ -28,7 +30,9 @@ class PrizeService
 
     public function create()
     {
-        return $this->createManager->definition()->create();
+        return DB::transaction(function () {
+            return $this->createManager->definition()->decrementLimit()->create();
+        });
     }
 
     public function confirm(Prize $prize)
