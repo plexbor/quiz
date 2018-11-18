@@ -2,17 +2,19 @@
 
 namespace App\Services\Prize;
 
+use App\Services\Prize\Create\Manager as CreateManager;
+
 class PrizeService
 {
-    protected $manager;
+    protected $createManager;
 
-    public function __construct(Manager $manager)
+    public function __construct(CreateManager $createManager)
     {
-        $this->manager = $manager;
+        $this->createManager = $createManager;
     }
 
     public function create()
     {
-        return $this->manager->definition()->create();
+        return $this->createManager->definition()->create();
     }
 }

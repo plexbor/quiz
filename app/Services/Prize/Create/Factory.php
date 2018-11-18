@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Prize;
+namespace App\Services\Prize\Create;
 
 use App\Models\Prize;
 
