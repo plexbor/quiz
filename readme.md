@@ -19,5 +19,11 @@
 - vendor/bin/phpunit
 
 
-### При первом деплое на production сервер
-- php artisan passport:keys
+### Дополнительная информация
+
+- php artisan limit:update - обновляет лимиты для денег и предметов, лимиты можно изменить в .env
+- php artisan withdraw:send - отправляет денежные призы на счета пользователей
+
+- php artisan passport:keys - Выполнить при первом деплое на production сервер
+
+Коэффициент конвертации денежного приза в баллы лояльности можно изменить в .env
