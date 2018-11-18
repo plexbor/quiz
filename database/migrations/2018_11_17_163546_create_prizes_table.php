@@ -23,8 +23,8 @@ class CreatePrizesTable extends Migration
             $table->integer('status');
             $table->timestamps();
 
-            $table->foreign('user_id')->on('users')->references('id');
-            $table->foreign('prize_type_id')->on('prize_types')->references('id');
+            $table->foreign('user_id')->on('users')->references('id')->onDelete('cascade');;
+            $table->foreign('prize_type_id')->on('prize_types')->references('id')->onDelete('cascade');;
         });
     }
 

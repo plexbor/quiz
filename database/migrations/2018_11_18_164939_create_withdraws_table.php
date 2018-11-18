@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePrizeActionsTable extends Migration
+class CreateWithdrawsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,15 @@ class CreatePrizeActionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('prize_actions', function (Blueprint $table) {
+        Schema::create('withdraws', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('prize_id');
-            $table->integer('type');
+            $table->string('bank_account');
+            $table->integer('amount');
+            $table->integer('status');
             $table->timestamps();
 
-            $table->foreign('prize_id')->on('prizes')->references('id')->onDelete('cascade');;
+            $table->foreign('prize_id')->on('prizes')->references('id')->onDelete('cascade');
         });
     }
 
@@ -30,6 +32,6 @@ class CreatePrizeActionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('prize_actions');
+        Schema::dropIfExists('withdraws');
     }
 }
