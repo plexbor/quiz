@@ -9,7 +9,11 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
+import Notifications from 'vue-notification'
+
 import { store } from './store'
+
+Vue.use(Notifications)
 
 /**
  * The following block of code may be used to automatically register your

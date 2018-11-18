@@ -19,9 +19,14 @@
                 axios.post('/api/prize/create')
                     .then(response => {
                         this.$store.commit('setPrize', response.data)
+
+                        this.$notify({
+                            type: 'success',
+                            text: 'Приз получен!'
+                        })
                     })
                     .catch(error => {
-                        console.log(error.response.data.message)
+                        console.log(error.response)
                     })
             }
         }

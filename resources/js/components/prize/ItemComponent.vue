@@ -35,7 +35,10 @@
                         this.$store.dispatch('getPrizes')
                     })
                     .catch(error => {
-                        console.log(error.response.data.message)
+                        this.$notify({
+                            type: 'error',
+                            text: error.response.data.message
+                        })
                     })
             },
             convert() {
